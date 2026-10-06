@@ -11,6 +11,8 @@ coverage/
 /dist-electron/
 /release/
 /build/
+/resources/icon.png
+/resources/icon.ico
 
 # 环境变量
 .env

@@ -25,6 +25,8 @@ const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    title: 'LeeSin',
+    icon: join(__dirname, '../resources', process.platform === 'win32' ? 'icon.ico' : 'icon.png'),
     width: 840,
     height: 910,
     minWidth: 840,

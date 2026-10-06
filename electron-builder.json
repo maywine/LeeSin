@@ -7,7 +7,9 @@
   "afterPack": "scripts/after-pack.cjs",
   "files": [
     "dist/**/*",
-    "dist-electron/**/*"
+    "dist-electron/**/*",
+    "resources/icon.png",
+    "resources/icon.ico"
   ],
   "win": {
     "target": [
@@ -16,7 +18,7 @@
         "arch": ["x64"]
       }
     ],
-    "artifactName": "${productName}-${version}-win-${arch}.${ext}",
+    "artifactName": "${productName}.${ext}",
     "icon": "resources/icon.ico",
     "requestedExecutionLevel": "requireAdministrator",
     "signAndEditExecutable": false

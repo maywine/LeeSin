@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Home, Swords, Settings, Minus, Square, X, History, Wand2 } from 'lucide-react'
 import { useLCUStore, useGameFlowStore } from '../../store'
+import appIcon from '../../../resources/icon.svg'
 
 interface LayoutProps {
   children: ReactNode
@@ -41,10 +42,8 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex items-center gap-3 no-drag">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-lol-gold to-lol-gold-dark flex items-center justify-center">
-              <span className="text-xs font-bold text-lol-bg-primary">L</span>
-            </div>
-            <span className="font-display text-lol-gold text-sm tracking-wider">LEESIN</span>
+            <img src={appIcon} alt="" className="w-6 h-6" draggable={false} />
+            <span className="font-display text-lol-gold text-sm tracking-wider">LeeSin</span>
           </div>
           
           {/* 连接状态 */}

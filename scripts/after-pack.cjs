@@ -15,6 +15,7 @@ module.exports = async context => {
   const productVersion = `${appInfo.version}.0`.split('.').slice(0, 4).join('.')
   const args = [
     executable,
+    '--set-icon', path.join(context.packager.projectDir, 'resources/icon.ico'),
     '--set-version-string', 'FileDescription', appInfo.productName,
     '--set-version-string', 'ProductName', appInfo.productName,
     '--set-version-string', 'LegalCopyright', appInfo.copyright,

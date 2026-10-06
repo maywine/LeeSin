@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLCUStore, useGameFlowStore, useChampSelectStore, useSettingsStore, useDataStore, useNotificationStore } from '../store'
-import type { Summoner, GameFlowPhase, ChampSelectSession, AppSettings, GameModeContext } from '../../shared/types'
+import type { Summoner, GameFlowPhase, ChampSelectSession, GameModeContext } from '../../shared/types'
 
 export function useLCU() {
   const { connected, summoner, setConnected } = useLCUStore()
@@ -45,6 +45,16 @@ export function useLCU() {
       }
     }
 
+    // 本地设置不依赖 LOL 客户端，连接未就绪或失败时也要恢复。
+    const loadSettings = async () => {
+      try {
+        const settings = await window.electronAPI.settings.get()
+        if (!disposed && settings) setSettings(settings)
+      } catch (error) {
+        console.error('加载设置失败', error)
+      }
+    }
+
     // 获取初始状态
     const initializeState = async () => {
       try {
@@ -69,10 +79,6 @@ export function useLCU() {
             setSession(session)
           }
           
-          // 获取设置
-          const settings = await window.electronAPI.settings.get()
-          if (settings) setSettings(settings)
-          
           // 获取英雄数据
           const champions = await window.electronAPI.data.getChampions()
           setChampions(champions)
@@ -82,6 +88,7 @@ export function useLCU() {
       }
     }
     
+    loadSettings()
     initializeState()
     
     // 订阅LCU连接事件
@@ -95,7 +102,7 @@ export function useLCU() {
       
       // 重新获取数据
       window.electronAPI.data.getChampions().then(setChampions)
-      window.electronAPI.settings.get().then((s: AppSettings | null) => s && setSettings(s))
+      loadSettings()
 
       const [phase, modeContext] = await Promise.all([
         window.electronAPI.gameflow.getPhase(),
